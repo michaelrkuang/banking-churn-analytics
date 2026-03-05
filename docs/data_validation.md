@@ -7,7 +7,6 @@ Findings:
 
 ## Data Type
 Query: 
-
 DESCRIBE michael_bank_churn_data;
 
 Findings:
@@ -42,7 +41,7 @@ SELECT
 FROM michael_bank_churn_data;
 
 Findings:
-0 NULL values in any of the data.
+- 0 NULL values in any of the data.
 
 ## Duplicate Customer ID
 
@@ -54,7 +53,7 @@ GROUP BY customerid
 HAVING COUNT(*) > 1;
 
 Findings:
-No duplicates.
+- No duplicates.
 
 ## Range Validation
 
@@ -76,11 +75,10 @@ FROM michael_bank_churn_data;
 SELECT MIN(balance), MAX(balance)
 FROM michael_bank_churn_data;
 
-
 Findings:
-Age: The minimum customer age was 18 and the maximum was 92 years old.
-Credit Score: The lowest was 350 while the greatest was 850.
-Balance: The lowest was 0 while the greatest was $250898.09.
+- Age: The minimum customer age was 18 and the maximum was 92 years old.
+- Credit Score: The lowest was 350 while the greatest was 850.
+- Balance: The lowest was 0 while the greatest was $250898.09.
 
 
 
