@@ -64,7 +64,7 @@ FROM michael_bank_churn_data
 GROUP BY 1
 ORDER BY age_group;
 
-FIndings:
+Findings:
 - 18-29: 1641 customers, 124 churned, 7.56% churn rate
 - 30-39: 4346 customers, 473 churned, 10.88% churn rate
 - 40-49: 2618 customers, 806 churned, 30.79% churn rate
@@ -72,3 +72,53 @@ FIndings:
 - 60+: 526 customers, 147 churned, 27.95% churn rate
 - Customers aged 40+ are significantly more at risk than younger customers
 - The 18-39 age groups are the most loyal, both under 11% churn
+
+## Product Stickiness
+
+SELECT
+    numofproducts,
+    COUNT(*) AS total_customers,
+    SUM(exited) AS churned_customers,
+    ROUND(CAST(SUM(exited) AS DOUBLE) / COUNT(*) * 100, 2) AS churn_rate_pct
+- 2 products is the retention sweet spot. The strategy should be to move 1-product customers to 2 products, but avoid pushing 3 or 4.
+
+## Churn Rate by Member Activity Status
+
+SELECT 
+    CASE WHEN isactivemember = 1 THEN 'Active'
+    ELSE 'Inactive'
+    END AS member_status,
+    COUNT(*) AS total_customers,
+    SUM(exited) AS churned_customers,
+    ROUND(CAST(SUM(exited) AS DOUBLE) / COUNT(*) * 100, 2) AS churn_rate_pct
+FROM michael_bank_churn_data
+GROUP BY isactivemember;
+
+Findings: 
+- Active: 5151 customers, 735 churned, 14.27% churn rate
+- Inactive: 4849 customers, 1302 churned, 26.85% churn rate
+- Inactive members churn at nearly twice the rate of active members
+- Despite having fewer customers, inactive members account for the majority of total churn (1302 vs 735)
+- Disengagement is a strong predictor of churn. The bank should prioritize re-engagement compains targeting inactive customers before they leave.
+
+## Churn Rate by Credit Score Band
+
+SELECT 
+    CASE
+        WHEN creditscore < 500 THEN 'Poor. (300-499)'
+        WHEN creditscore < 600 THEN 'Fair (500-599)'
+        WHEN creditscore < 700 THEN 'Good (600-699)'
+        WHEN creditscore < 800 THEN 'Very Good (700-799)'
+        ELSE 'Excellent (800+)'
+    END AS credit_band,
+    COUNT(*) AS total_customers,
+    SUM(exited) AS churned_customers,
+    ROUND(CAST(SUM(exited) AS DOUBLE) / COUNT(*) * 100, 2) AS churn_rate_pct
+FROM michael_bank_churn_data
+GROUP BY 1
+ORDER BY credit_band;
+
+Findings:
+- Churn rates were consistent across all credit score bands, ranging from 19.54% to 23.73%
+- No significant correlation found between credit score and churn
+- Credit score is not a reliable predictor of customer attrition
