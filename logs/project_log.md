@@ -1,4 +1,4 @@
-# Project Log
+z# Project Log
 
 ## Phase 1 – S3 Data Landing
 - Created S3 bucket: michael-bank-churn-data
@@ -12,6 +12,12 @@
 - Table created: michael_bank_churn_data
 
 ## Phase 3 – Athena Setup
-- Configured query results location: s3://michael-bank-churn-data/athena-results/
-- Verified table query:
-  - SELECT * FROM michael_bank_churn_data LIMIT 10;
+- Ran SQL queries to analyze chrun across key dimensions
+- Queries completed: overall churn rate, balance segmentation, geography, age group, product stickiness, member activity status, credit score band
+
+## Phase 4 - QuickSight Dashboard
+- Connected Athena dataset: bank-churn-analysis
+- Created Quicksight dashboard
+- 6 dashboards built (Geography, Product Count, Age Band, Activity Status, Gender, KPI card)
+- Dashboard published
+

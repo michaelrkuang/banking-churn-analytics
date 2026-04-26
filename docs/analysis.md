@@ -1,3 +1,11 @@
+# Bank Customer Churn Analysis
+**Dataset:** Kaggle Bank Customer Churn (10,000 customers)
+**Tools:** AWS S3, Glue, Athena, QuickSight
+**Dashboard:** Published via Amazon QuickSight
+
+## Objective
+Identify key drivers of customer churn at a European bank and surface actionable retention insights.
+
 ## Overall churn rate %
 
 Query: 
@@ -80,6 +88,15 @@ SELECT
     COUNT(*) AS total_customers,
     SUM(exited) AS churned_customers,
     ROUND(CAST(SUM(exited) AS DOUBLE) / COUNT(*) * 100, 2) AS churn_rate_pct
+FROM michael_bank_churn_data
+GROUP BY numofproducts
+ORDER BY numofproducts;
+
+Findings:
+- 1 product: 27.71% churn - moderately high, these customers have little tying them to the bank
+- 2 products: 7.58% churn - the sweeet spot, these customers are the most loyal
+- 3 products: 82.71% churn - incredibly high, retention is low here
+- 4: 100% churn - every single customer with 4 products left
 - 2 products is the retention sweet spot. The strategy should be to move 1-product customers to 2 products, but avoid pushing 3 or 4.
 
 ## Churn Rate by Member Activity Status
@@ -122,3 +139,29 @@ Findings:
 - Churn rates were consistent across all credit score bands, ranging from 19.54% to 23.73%
 - No significant correlation found between credit score and churn
 - Credit score is not a reliable predictor of customer attrition
+
+## Churn Ratye by Gender
+
+SELECT 
+    gender,
+    COUNT(*) AS total_customers,
+    SUM(exited) AS churned_customers,
+    ROUND(CAST(SUM(exited) AS DOUBLE) / COUNT(*) * 100, 2) AS churn_rate_pct
+FROM michael_bank_churn_data
+GROUP BY gender
+ORDER BY churn_rate_pct DESC;
+
+Findings:
+- Female: 4543 customers, 1139 churned, 25.07% churn rate
+- Male: 5457 customers, 898 churned, 16.46% churn rate
+- Female customers churn at a 52% higher rate than male customers
+
+## Key Findings Summary
+
+1. Germany is the highest-risk market at 32.44% — double France and Spain
+2. 2-product customers are the most loyal (7.58%); 3-4 products churn at extreme rates (82-100%)
+3. Customers aged 50-59 churn at 56% — the single highest-risk segment
+4. Inactive members account for the majority of total churn despite being the smaller group
+5. High-balance customers (100k+) churn at 59% higher rates — most valuable customers are most at risk
+6. Female customers churn at 52% higher rate than male customers
+7. Credit score has no meaningful correlation with churn
