@@ -12,7 +12,7 @@ z# Project Log
 - Table created: michael_bank_churn_data
 
 ## Phase 3 – Athena Setup
-- Ran SQL queries to analyze chrun across key dimensions
+- Ran SQL queries to analyze churn across key dimensions
 - Queries completed: overall churn rate, balance segmentation, geography, age group, product stickiness, member activity status, credit score band
 
 ## Phase 4 - QuickSight Dashboard
@@ -20,4 +20,5 @@ z# Project Log
 - Created Quicksight dashboard
 - 6 dashboards built (Geography, Product Count, Age Band, Activity Status, Gender, KPI card)
 - Dashboard published
+- Key finding: 50-59 age group at 56% churn, Germany at 32.44%, inactive members account for majority of total churn
 
