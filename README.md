@@ -43,5 +43,5 @@ Kaggle Bank Customer Churn dataset — 10,000 customers across France, Spain, an
 ├── logs/
 │   └── project_log.md
 ├── quicksight/
-│   └── dashboard.pdf
+│   └── dashboard.png
 ```
